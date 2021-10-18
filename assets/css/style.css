@@ -1,0 +1,133 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:900|Roboto+Mono:300,400,700);
+
+
+:root {
+    --dark: rgb(48, 48, 48);
+    --light: rgb(253, 253, 253);
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: Roboto Mono;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-weight: 100;
+    color: var(--light);
+    background-color: var(--dark);
+    line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 10px;
+}
+
+p {
+    margin: 5px;
+}
+
+header {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: var(--dark);
+    background-color: var(--light);
+    padding: 0.5% 2% 0.5% 2%;
+    margin: 0;
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+
+h4 {
+  align-items: center;
+  text-align: center;
+  display: inline;
+  padding: 0.5% 2% 0.5% 2%;
+  margin: 0;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+h3 {
+  display: inline;
+  padding: 0.5% 2% 0.5% 2%;
+  margin: 0;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.FiveDayCardForecast {
+  color: var(--dark);
+  background-color: var(--light);
+  margin: 10px;
+}
+
+
+.container-fluid  {
+    padding: 1% 1% 1% 1%;
+    margin: 10px;
+    text-align: center;
+}
+
+
+button {
+    padding: 0.5% 1% 0.5% 1%;
+    margin-top: 10px;
+    height: 50px;
+    width: 150px;
+    color: var(--dark);
+    background-color: var(--light);
+}
+
+.pastSearchButton {
+  height: 50px;
+  width: 200px;
+  color: var(--dark);
+  background-color: var(--light);
+}
+
+input {
+  padding: 0.5% 1% 0.5% 1%;
+  margin-top: 10px;
+  height: 50px;
+  width: 250px;
+  color: var(--dark);
+  background-color: var(--light);
+  text-align: center;
+}
+
+.weatherInformation {
+  display: list-item;
+  font-size: 15px;
+  font-weight: 200;
+  list-style-type: none;
+}
+
+span.severe{
+  padding: 1px;
+  background-color: rgb(196,44,33);
+  color:white;
+
+}
+
+span.moderate{
+  padding: 3px;
+  background-color: rgb(251,196,91);
+}
+
+span.favorable{
+  padding: 3px;
+  background-color: rgb(58,102,16);
+  color:white;
+}
+#lineBreak {
+    margin: 10px;
+}

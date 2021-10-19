@@ -1,13 +1,16 @@
 
-var cities = [];
+var fivedayForecastTitle = document.querySelector("#forecast");
+
 
 var cityForm=document.querySelector("#citySearch");
 var lookupCityInput=document.querySelector("#lookupCity");
 var weatherContainer=document.querySelector("#currentWeather");
 var citySearchInput = document.querySelector("#cityHistory");
-var forecastTitle = document.querySelector("#forecast");
+
 var forecastContainer = document.querySelector("#fivedayForecast");
 var pastSearchButton = document.querySelector("#searchHistory");
+
+var cities = [];
 
 var formSumbitHandler = function(event){
     event.preventDefault();
@@ -40,37 +43,38 @@ var getCityWeather = function(lookupCity){
     });
 };
 
-var displayWeather = function(forecastWeather, searchCity){
+var displayWeather = function(weather, searchCity){
   
    weatherContainer.textContent= "";  
    citySearchInput.textContent=  searchCity.charAt(0).toUpperCase() + searchCity.slice(1);
 
    var currentDate = document.createElement("h4")
-   currentDate.textContent= " " + moment(forecastWeather.dt.value).format("MMM D, YYYY") ;
+   currentDate.textContent= " " + moment(weather.dt.value).format("MMM D, YYYY") ;
    citySearchInput.appendChild(currentDate);
 
    var weatherIcon = document.createElement("img")
-   weatherIcon.setAttribute("src", `https://openweathermap.org/img/wn/${forecastWeather.weather[0].icon}@2x.png`);
+   weatherIcon.setAttribute("src", `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`);
    citySearchInput.appendChild(weatherIcon);
 
    var temperature = document.createElement("span");
-   temperature.textContent = "Temperature: " + forecastWeather.main.temp + " °C";
+   temperature.textContent = "Temperature: " + weather.main.temp + " °C";
    temperature.classList = "weatherInformation"
   
    var humidity = document.createElement("span");
-   humidity.textContent = "Humidity: " + forecastWeather.main.humidity + " %";
+   humidity.textContent = "Humidity: " + weather.main.humidity + " %";
    humidity.classList = "weatherInformation"
 
    var windSpeed = document.createElement("span");
-   windSpeed.textContent = "Wind Speed: " + forecastWeather.wind.speed + " m/s";
+   windSpeed.textContent = "Wind Speed: " + weather.wind.speed + " m/s";
    windSpeed.classList = "weatherInformation"
 
+   //append to container
    weatherContainer.appendChild(temperature);
    weatherContainer.appendChild(humidity);
    weatherContainer.appendChild(windSpeed);
 
-   var lat = forecastWeather.coord.lat;
-   var lon = forecastWeather.coord.lon;
+   var lat = weather.coord.lat;
+   var lon = weather.coord.lon;
    getUvIndex(lat,lon)
 }
 
@@ -83,8 +87,8 @@ var getUvIndex = function(lat,lon){
             displayUvIndex(data)
         });
     });
-    console.log(lat);
-    console.log(lon);
+    //console.log(lat);
+    //console.log(lon);
 }
  
 var displayUvIndex = function(index){
@@ -100,7 +104,7 @@ var displayUvIndex = function(index){
     }else if(index.value >2 && index.value<=8){
         uvIndexValue.classList = "yellow"
     }
-    else if(index.value >8){
+    else {
         uvIndexValue.classList = "red"
     };
 
@@ -124,7 +128,7 @@ var get5Day = function(city){
 
 var display5Day = function(weather){
     forecastContainer.textContent = ""
-    forecastTitle.textContent = "Five Day Forecast:";
+    fivedayForecastTitle.textContent = "Five Day Forecast:";
 
     var forecast = weather.list;
         for(var i=5; i < forecast.length; i=i+8){
@@ -135,8 +139,8 @@ var display5Day = function(weather){
        fivedayForcast.classList = "card FiveDayCardForecast";
 
 
-       var forecastDate = document.createElement("h3")
-       forecastDate.textContent= moment.unix(dailyForecast.dt).format("MMM D, YYYY");
+       var forecastDate = document.createElement("h5")
+       forecastDate.textContent= moment.unix(dailyForecast.dt).format("MMM D");
        forecastDate.classList = "card-header text-center"
        fivedayForcast.appendChild(forecastDate);
 
@@ -147,13 +151,13 @@ var display5Day = function(weather){
 
        fivedayForcast.appendChild(weatherIcon);
        
-       var forecastTemp=document.createElement("span");
+       var forecastTemp=document.createElement("div");
        forecastTemp.classList = "card-body text-center";
        forecastTemp.textContent = dailyForecast.main.temp + " °C";
 
         fivedayForcast.appendChild(forecastTemp);
 
-       var forecastHum=document.createElement("span");
+       var forecastHum=document.createElement("div");
        forecastHum.classList = "card-body text-center";
        forecastHum.textContent = dailyForecast.main.humidity + "  %";
 
@@ -168,21 +172,23 @@ var pastSearch = function(pastSearch){
     pastSearch = document.createElement("button");
     pastSearch.textContent = pastSearch;
     pastSearch.classList = "pastSearchButton";
-    pastSearch.setAttribute("data-city",pastSearch)
+    pastSearch.setAttribute("cities",pastSearch)
     pastSearch.setAttribute("type", "submit");
+
+
 
     pastSearchButton.prepend(pastSearch);
 }
 
 
 var pastSearchHistory = function(event){
-    var city = event.target.getAttribute("data-city")
+    var city = event.target.getAttribute("cities")
     if(city){
         getCityWeather(city);
         get5Day(city);
     }
 }
 
+
 cityForm.addEventListener("submit", formSumbitHandler);
 pastSearchButton.addEventListener("click", pastSearchHistory);
-

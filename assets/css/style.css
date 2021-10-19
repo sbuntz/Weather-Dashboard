@@ -87,6 +87,11 @@ button {
     background-color: var(--light);
 }
 
+.card-body {
+  margin: 1px;
+  padding: 2px;
+}
+
 .pastSearchButton {
   height: 50px;
   width: 200px;

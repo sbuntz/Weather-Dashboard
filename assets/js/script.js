@@ -1,40 +1,31 @@
-var cities = [];
-
-var cityFormEl=document.querySelector("#citySearch");
-var cityInputEl=document.querySelector("#city");
-var weatherContainerEl=document.querySelector("#currentWeather");
-var citySearchInputEl = document.querySelector("#cityHistory");
-var forecastTitle = document.querySelector("#forecast");
-var forecastContainerEl = document.querySelector("#fivedayForecast");
-var pastSearchButtonEl = document.querySelector("#searchHistory");
 
 var formSumbitHandler = function(event){
     event.preventDefault();
-    var city = cityInputEl.value.trim();
-    if(city){
-        getCityWeather(city);
-        get5Day(city);
-        cities.unshift({city});
-        cityInputEl.value = "";
+    var lookupCity = lookupCityInputEl.value.trim();
+    if(lookupCity){
+        getCityWeather(lookupCity);
+        get5Day(lookupCity);
+        cities.unshift({lookupCity});
+        lookupCityInputEl.value = "";
     } else{
         alert("Please enter a City");
     }
     saveSearch();
-    pastSearch(city);
+    pastSearch(lookupCity);
 }
 
 var saveSearch = function(){
     localStorage.setItem("cities", JSON.stringify(cities));
 };
 
-var getCityWeather = function(city){
+var getCityWeather = function(lookupCity){
     var apiKey = "9d93230f3ad2bc78a7973c5234d7ba2e"
-    var apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
+    var apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${lookupCity}&units=metric&appid=${apiKey}`
 
     fetch(apiURL)
     .then(function(response){
         response.json().then(function(data){
-            displayWeather(data, city);
+            displayWeather(data, lookupCity);
         });
     });
 };
@@ -48,7 +39,6 @@ var displayWeather = function(weather, searchCity){
    currentDate.textContent= " " + moment(weather.dt.value).format("MMM D, YYYY") ;
    citySearchInputEl.appendChild(currentDate);
 
-   //create an image element
    var weatherIcon = document.createElement("img")
    weatherIcon.setAttribute("src", `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`);
    citySearchInputEl.appendChild(weatherIcon);

@@ -111,19 +111,19 @@ input {
   list-style-type: none;
 }
 
-span.severe{
+span.severrede{
   padding: 1px;
   background-color: rgb(196,44,33);
   color:white;
 
 }
 
-span.moderate{
+span.yellow{
   padding: 3px;
   background-color: rgb(251,196,91);
 }
 
-span.favorable{
+span.green{
   padding: 3px;
   background-color: rgb(58,102,16);
   color:white;

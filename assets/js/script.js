@@ -10,7 +10,7 @@ var citySearchInput = document.querySelector("#cityHistory");
 var forecastContainer = document.querySelector("#fivedayForecast");
 var pastSearchButton = document.querySelector("#searchHistory");
 
-var cities = [];
+var cities = "";
 
 var formSumbitHandler = function(event){
     event.preventDefault();
@@ -84,14 +84,14 @@ var getUvIndex = function(lat,lon){
     fetch(apiURL)
     .then(function(response){
         response.json().then(function(data){
-            displayUvIndex(data)
+            displayUvColour(data)
         });
     });
     //console.log(lat);
     //console.log(lon);
 }
  
-var displayUvIndex = function(index){
+var displayUvColour = function(index){
     var uvIndex = document.createElement("div");
     uvIndex.textContent = "UV Index: "
     uvIndex.classList = "weatherInformation"

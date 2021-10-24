@@ -10,9 +10,10 @@ var citySearchInput = document.querySelector("#cityHistory");
 var forecastContainer = document.querySelector("#fivedayForecast");
 var pastSearchButton = document.querySelector("#searchHistory");
 
-var cities = "";
+var cities = [];
 
-var formSumbitHandler = function(event){
+
+var formSubmit = function(event){
     event.preventDefault();
     var lookupCity = lookupCityInput.value.trim();
     if(lookupCity){
@@ -20,9 +21,7 @@ var formSumbitHandler = function(event){
         get5Day(lookupCity);
         cities.unshift({lookupCity});
         lookupCityInput.value = "";
-    } else{
-        alert("Please enter a City");
-    }
+    } 
     saveSearch();
     pastSearch(lookupCity);
 }
@@ -30,6 +29,8 @@ var formSumbitHandler = function(event){
 var saveSearch = function(){
     localStorage.setItem("cities", JSON.stringify(cities));
 };
+
+
 
 var getCityWeather = function(lookupCity){
     var apiKey = "9d93230f3ad2bc78a7973c5234d7ba2e"
@@ -190,5 +191,5 @@ var pastSearchHistory = function(event){
 }
 
 
-cityForm.addEventListener("submit", formSumbitHandler);
+cityForm.addEventListener("submit", formSubmit);
 pastSearchButton.addEventListener("click", pastSearchHistory);

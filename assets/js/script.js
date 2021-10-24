@@ -1,9 +1,6 @@
 
 var fivedayForecastTitle = document.querySelector("#forecast");
 
-
-var cityForm=document.querySelector("#citySearch");
-var lookupCityInput=document.querySelector("#lookupCity");
 var weatherContainer=document.querySelector("#currentWeather");
 var citySearchInput = document.querySelector("#cityHistory");
 
@@ -13,22 +10,6 @@ var pastSearchButton = document.querySelector("#searchHistory");
 var cities = [];
 
 
-var formSubmit = function(event){
-    event.preventDefault();
-    var lookupCity = lookupCityInput.value.trim();
-    if(lookupCity){
-        getCityWeather(lookupCity);
-        get5Day(lookupCity);
-        cities.unshift({lookupCity});
-        lookupCityInput.value = "";
-    } 
-    saveSearch();
-    pastSearch(lookupCity);
-}
-
-var saveSearch = function(){
-    localStorage.setItem("cities", JSON.stringify(cities));
-};
 
 
 
@@ -168,28 +149,42 @@ var display5Day = function(weather){
 
 }
 
-var pastSearch = function(pastSearch){
-     
-    pastSearch = document.createElement("button");
-    pastSearch.textContent = pastSearch;
-    pastSearch.classList = "pastSearchButton";
-    pastSearch.setAttribute("cities",pastSearch)
-    pastSearch.setAttribute("type", "submit");
+function saveLastSearch(searchHistory) {
+    localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+};
 
 
+// initialise function
+function init() {
+    // set a default coin on page load
+    let defaultCity = "Berlin";
 
-    pastSearchButton.prepend(pastSearch);
-}
+    // get any stored scores
+    const storedSearchHistory = JSON.parse(localStorage.getItem("searchHistory"));
 
+    // if there are stored values, save them to the variable
+    if (storedSearchHistory !== null) {
+        defaultCity = storedSearchHistory
+    };
 
-var pastSearchHistory = function(event){
-    var city = event.target.getAttribute("cities")
-    if(city){
-        getCityWeather(city);
-        get5Day(city);
-    }
-}
+    // make the API calls
+    getCityWeather(defaultCity);
+    get5Day(defaultCity);
+};
 
+$(document).ready(function() {
+    init();
 
-cityForm.addEventListener("submit", formSubmit);
-pastSearchButton.addEventListener("click", pastSearchHistory);
+$("#search-button").on("click", function(event) {
+    // stop the form submitting
+    event.preventDefault();
+    console.log("hi")
+    const lookupCity = $("#lookupCity").val().toLowerCase();
+    saveLastSearch(lookupCity);
+    getCityWeather(lookupCity);
+    get5Day(lookupCity);
+    // clear input field
+    $("#lookupCity").val("")
+    });
+
+});

@@ -7,6 +7,9 @@ var citySearchInput = document.querySelector("#cityHistory");
 var forecastContainer = document.querySelector("#fivedayForecast");
 var pastSearchButton = document.querySelector("#searchHistory");
 
+var cities = [];
+
+
 
 
 var getCityWeather = function(lookupCity){
@@ -149,28 +152,19 @@ function saveLastSearch(searchHistory) {
     localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
 };
 
-
-
-function init() {
-
-    let defaultCity = "Berlin";
-
-
-    const storedSearchHistory = JSON.parse(localStorage.getItem("searchHistory"));
-
+let getHistory = JSON.parse(localStorage.getItem("citySearched")) || []
   
-    if (storedSearchHistory !== null) {
-        defaultCity = storedSearchHistory
-    };
+function render() {
+  for (var i = 0; i < getHistory.length; i++) {
+    if (getHistory !== null) {
+
+        $('#citySearched').prepend('<button class="pastSearchButton">'+getHistory[i]+'</button>').attr('value', getHistory[i]);
+     
+    }
+  }};
 
 
-    getCityWeather(defaultCity);
-    get5Day(defaultCity);
-};
-
-
-
-var citiesSearched = [];
+  var citiesSearched = [];
 
 var addCities = function() {
     var citySearched = document.getElementById('lookupCity').value;
@@ -183,32 +177,38 @@ var addCities = function() {
   };
 
 
-  let getHistory = JSON.parse(localStorage.getItem("citySearched")) || []
-  
-  function render() {
-    for (var i = 0; i < getHistory.length; i++) {
-      if (getHistory !== null) {
+// initialise function
+function init() {
+    // set a default coin on page load
+    let defaultCity = "Berlin";
 
-          $('#searchHistory').prepend('<button class="pastSearchButton">'+getHistory[i]+'</button>').attr('value', getHistory[i]);
-        // }
-        
-      }
-    }};
+    // get any stored scores
+    const storedSearchHistory = JSON.parse(localStorage.getItem("searchHistory"));
+
+    // if there are stored values, save them to the variable
+    if (storedSearchHistory !== null) {
+        defaultCity = storedSearchHistory
+    };
+
+    // make the API calls
+    getCityWeather(defaultCity);
+    get5Day(defaultCity);
+};
 
 $(document).ready(function() {
-    init() ;
-    render();
+    init();
 
 $("#search-button").on("click", function(event) {
     // stop the form submitting
     event.preventDefault();
-
+    console.log("hi")
     const lookupCity = $("#lookupCity").val().toLowerCase();
     saveLastSearch(lookupCity);
     getCityWeather(lookupCity);
     get5Day(lookupCity);
-    addCities();
+    addCities(lookupCity);
     render();
+    // clear input field
     $("#lookupCity").val("")
     });
 

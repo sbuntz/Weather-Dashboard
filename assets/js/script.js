@@ -158,7 +158,7 @@ function render() {
   for (var i = 0; i < getHistory.length; i++) {
     if (getHistory !== null) {
 
-        $('#citySearched').prepend('<button class="pastSearchButton">'+getHistory[i]+'</button>').attr('value', getHistory[i]);
+        $('#searchHistory').prepend('<button class="pastSearchButton">'+getHistory[i]+'</button>').attr('value', getHistory[i]);
      
     }
   }};

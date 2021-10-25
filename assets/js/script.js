@@ -7,10 +7,6 @@ var citySearchInput = document.querySelector("#cityHistory");
 var forecastContainer = document.querySelector("#fivedayForecast");
 var pastSearchButton = document.querySelector("#searchHistory");
 
-var cities = [];
-
-
-
 
 
 var getCityWeather = function(lookupCity){
@@ -156,7 +152,7 @@ function saveLastSearch(searchHistory) {
 
 // initialise function
 function init() {
-    // set a default coin on page load
+
     let defaultCity = "Berlin";
 
     // get any stored scores
@@ -172,18 +168,47 @@ function init() {
     get5Day(defaultCity);
 };
 
+
+
+var citiesSearched = [];
+
+var addCities = function() {
+    var citySearched = document.getElementById('lookupCity').value;
+    var localStorageSaved = localStorage.getItem('citySearched');
+    if (localStorageSaved !== null) {
+        citiesSearched = JSON.parse(localStorageSaved);
+    }
+    citiesSearched.push(citySearched);
+    localStorage.setItem('citySearched', JSON.stringify(citiesSearched));
+  };
+
+
+  let getHistory = JSON.parse(localStorage.getItem("citySearched")) || []
+  
+  function render() {
+    for (var i = 0; i < getHistory.length; i++) {
+      if (getHistory !== null) {
+        //for loop to populat each city in local storage into history element
+          $('#searchHistory').prepend('<button class="pastSearchButton">'+getHistory[i]+'</button>').attr('value', getHistory[i]);
+        // }
+        
+      }
+    }};
+
 $(document).ready(function() {
-    init();
+    init() ;
+    render();
 
 $("#search-button").on("click", function(event) {
     // stop the form submitting
     event.preventDefault();
-    console.log("hi")
+
     const lookupCity = $("#lookupCity").val().toLowerCase();
     saveLastSearch(lookupCity);
     getCityWeather(lookupCity);
     get5Day(lookupCity);
-    // clear input field
+    addCities();
+    render();
     $("#lookupCity").val("")
     });
 

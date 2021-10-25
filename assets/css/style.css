@@ -8,7 +8,7 @@
 
 * {
     margin: 0px;
-    padding: 0px;
+
     box-sizing: border-box;
     font-family: Roboto Mono;
 }
@@ -74,15 +74,20 @@ h3 {
 .container-fluid  {
     padding: 1% 1% 1% 1%;
     margin: 10px;
-    text-align: center;
 }
 
+.todayForecast {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-right: 40%;
+}
 
-button {
+#search-button {
     padding: 0.5% 1% 0.5% 1%;
     margin-top: 10px;
+    margin-left: 20px;
     height: 50px;
-    width: 150px;
+    width: 200px;
     color: var(--dark);
     background-color: var(--light);
 }
@@ -93,8 +98,11 @@ button {
 }
 
 .pastSearchButton {
+  padding: 0.5% 1% 0.5% 1%;
+  margin-top: 10px;
   height: 50px;
   width: 200px;
+  margin-left: 20px;
   color: var(--dark);
   background-color: var(--light);
 }
@@ -114,7 +122,10 @@ input {
   font-size: 15px;
   font-weight: 200;
   list-style-type: none;
+  text-align: center;
 }
+
+
 
 span.red{
   padding: 1px;

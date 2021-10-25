@@ -79,7 +79,11 @@ h3 {
 .todayForecast {
   text-align: center;
   margin-bottom: 2rem;
-  padding-right: 40%;
+  padding-right: 50px;
+}
+
+#forecast {
+  margin-left: 200px;
 }
 
 #search-button {

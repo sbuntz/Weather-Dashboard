@@ -150,20 +150,20 @@ function saveLastSearch(searchHistory) {
 };
 
 
-// initialise function
+
 function init() {
 
     let defaultCity = "Berlin";
 
-    // get any stored scores
+
     const storedSearchHistory = JSON.parse(localStorage.getItem("searchHistory"));
 
-    // if there are stored values, save them to the variable
+  
     if (storedSearchHistory !== null) {
         defaultCity = storedSearchHistory
     };
 
-    // make the API calls
+
     getCityWeather(defaultCity);
     get5Day(defaultCity);
 };
@@ -188,7 +188,7 @@ var addCities = function() {
   function render() {
     for (var i = 0; i < getHistory.length; i++) {
       if (getHistory !== null) {
-        //for loop to populat each city in local storage into history element
+
           $('#searchHistory').prepend('<button class="pastSearchButton">'+getHistory[i]+'</button>').attr('value', getHistory[i]);
         // }
         

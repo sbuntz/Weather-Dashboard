@@ -157,7 +157,7 @@ let getHistory = JSON.parse(localStorage.getItem("citySearched")) || []
 function render() {
   for (var i = 0; i < getHistory.length; i++) {
     if (getHistory !== null) {
-
+        console.log(getHistory[i])
         $('#searchHistory').prepend('<button class="pastSearchButton">'+getHistory[i]+'</button>').attr('value', getHistory[i]);
      
     }
@@ -197,8 +197,8 @@ function init() {
 
 $(document).ready(function() {
     init();
-
-$("#search-button").on("click", function(event) {
+    render();
+$("#searchButton").on("click", function(event) {
     // stop the form submitting
     event.preventDefault();
     console.log("hi")
@@ -207,7 +207,7 @@ $("#search-button").on("click", function(event) {
     getCityWeather(lookupCity);
     get5Day(lookupCity);
     addCities(lookupCity);
-    render();
+    
     // clear input field
     $("#lookupCity").val("")
     });

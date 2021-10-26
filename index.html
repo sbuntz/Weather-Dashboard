@@ -17,17 +17,18 @@
     <header>Weather Dashboard</header>
     <main class="container-fluid">
         <div class = "row">
-            <div class="col-12 col-md-3 p-2 search-column">
+            <div class="col-12 col-md-2 p-2 search-column">
                 <form id = "citySearch">
                     <h5>Search for a City</h5>
                     <input id="lookupCity" type = "text"  class = "formInput" placeholder="enter city name">
-                    <button type = "submit" id =search-button>Search</button>
+                    <button type = "submit" id ="searchButton">Search</button>
                 </form>
                 <div id = "searchHistory"></div>
             </div>
-            <div class="col-12 col-md-9">
+            <div class="col-12 col-md-5">
                 <div class = "selected-city" id = "currentForecast">
-                    <div class = "col-12 todayForecast">
+                    <div class = "todayForecast">
+                        
                         <h4 id="cityHistory"></h4>
                         <br>
                         <div id = "currentWeather"></div>

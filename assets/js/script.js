@@ -157,7 +157,7 @@ let getHistory = JSON.parse(localStorage.getItem("citySearched")) || []
 function render() {
   for (var i = 0; i < getHistory.length; i++) {
     if (getHistory !== null) {
-        console.log(getHistory[i])
+
         $('#searchHistory').prepend('<button class="pastSearchButton">'+getHistory[i]+'</button>').attr('value', getHistory[i]);
      
     }
@@ -199,7 +199,7 @@ $(document).ready(function() {
     init();
     render();
 
-$("#search-button").on("click", function(event) {
+$("#searchButton").on("click", function(event) {
     // stop the form submitting
     event.preventDefault();
     console.log("hi")

@@ -198,7 +198,8 @@ function init() {
 $(document).ready(function() {
     init();
     render();
-$("#searchButton").on("click", function(event) {
+
+$("#search-button").on("click", function(event) {
     // stop the form submitting
     event.preventDefault();
     console.log("hi")
@@ -207,7 +208,7 @@ $("#searchButton").on("click", function(event) {
     getCityWeather(lookupCity);
     get5Day(lookupCity);
     addCities(lookupCity);
-    
+    render();
     // clear input field
     $("#lookupCity").val("")
     });
